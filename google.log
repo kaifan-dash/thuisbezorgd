@@ -1,0 +1,764 @@
+2020-09-23 16:02:39,888 - root - INFO - browser init
+2020-09-23 16:03:19,707 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-23 16:03:19,836 - asyncio - ERROR - Exception in callback <TaskStepMethWrapper object at 0x1045b47f0>()
+handle: <Handle <TaskStepMethWrapper object at 0x1045b47f0>()>
+Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/base_events.py", line 678, in call_soon
+    def call_soon(self, callback, *args, context=None):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/launcher.py", line 151, in _close_process
+    self._loop.run_until_complete(self.killChrome())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/base_events.py", line 571, in run_until_complete
+    self.run_forever()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/base_events.py", line 526, in run_forever
+    raise RuntimeError('This event loop is already running')
+RuntimeError: This event loop is already running
+2020-09-23 16:04:26,078 - asyncio - ERROR - Task was destroyed but it is pending!
+task: <Task pending coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69>>
+2020-09-23 16:04:28,448 - root - INFO - browser init
+2020-09-23 16:05:10,615 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-23 16:05:12,588 - root - INFO - browser init
+2020-09-23 16:05:33,836 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-23 16:06:02,714 - root - INFO - browser init
+2020-09-23 16:06:33,775 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-23 16:39:42,980 - root - INFO - browser closed
+2020-09-24 11:35:07,264 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 17:18:27,045 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:20:10,245 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:21:28,642 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 17:22:02,745 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:22:54,682 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-24 17:24:00,971 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:24:51,172 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 17:25:08,666 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:26:20,393 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:27:09,350 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 17:27:35,791 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:32:57,809 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:33:52,247 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:37:22,636 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:39:07,644 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:43:00,858 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:47:08,811 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:48:42,186 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 17:59:56,806 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:05:43,920 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:06:25,768 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-24 18:06:38,790 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:07:28,296 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 18:08:18,175 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:09:15,190 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:09:34,155 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 18:09:59,881 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:10:19,708 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 18:11:17,303 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:11:37,326 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 18:12:00,343 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:12:22,311 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 18:12:52,212 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:13:12,557 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 18:14:18,614 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:16:16,417 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:37:20,137 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:38:09,141 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:38:25,736 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:39:07,659 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:40:23,963 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:45:33,925 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:47:26,777 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Launcher.killChrome() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/launcher.py:204> exception=RuntimeError('This event loop is already running')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/launcher.py", line 217, in killChrome
+    self._cleanup_tmp_user_data_dir()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/launcher.py", line 127, in _cleanup_tmp_user_data_dir
+    shutil.rmtree(self.temporaryUserDataDir, ignore_errors=True)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/shutil.py", line 491, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/shutil.py", line 429, in _rmtree_safe_fd
+    _rmtree_safe_fd(dirfd, fullname, onerror)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/shutil.py", line 429, in _rmtree_safe_fd
+    _rmtree_safe_fd(dirfd, fullname, onerror)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/shutil.py", line 429, in _rmtree_safe_fd
+    _rmtree_safe_fd(dirfd, fullname, onerror)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/shutil.py", line 447, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/launcher.py", line 151, in _close_process
+    self._loop.run_until_complete(self.killChrome())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/base_events.py", line 571, in run_until_complete
+    self.run_forever()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/base_events.py", line 526, in run_forever
+    raise RuntimeError('This event loop is already running')
+RuntimeError: This event loop is already running
+2020-09-24 18:48:30,112 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:49:23,142 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 18:51:48,595 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-24 19:27:56,965 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 679, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 473, in _wait_for_data
+    await self._waiter
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/selector_events.py", line 801, in _read_ready__data_received
+    data = self._sock.recv(self.max_size)
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 19:29:25,391 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-24 19:32:28,081 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 679, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 473, in _wait_for_data
+    await self._waiter
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/selector_events.py", line 801, in _read_ready__data_received
+    data = self._sock.recv(self.max_size)
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 812, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-24 19:36:01,799 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 679, in readexactly
+    await self._wait_for_data('readexactly')
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 473, in _wait_for_data
+    await self._waiter
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/selector_events.py", line 801, in _read_ready__data_received
+    data = self._sock.recv(self.max_size)
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 812, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-25 14:55:53,361 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-25 14:56:37,017 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-25 14:57:35,403 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-25 14:58:19,045 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:58:19,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:58:19,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:58:19,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:58:19,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:58:19,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:58:19,047 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=NetworkError('Protocol error Target.sendMessageToTarget: Target closed.')>
+pyppeteer.errors.NetworkError: Protocol error Target.sendMessageToTarget: Target closed.
+2020-09-25 14:59:56,139 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-09-25 15:00:15,668 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-09-25 15:00:27,847 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2020-11-19 07:51:42,267 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/home/ubuntu/anaconda3/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 555, in send
+    await self.ensure_open()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
+2020-11-19 09:16:02,394 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<Connection._async_send() done, defined at /home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py:69> exception=InvalidStateError('invalid state')>
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 827, in transfer_data
+    message = await self.read_message()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 895, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 971, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 1051, in read_frame
+    extensions=self.extensions,
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/framing.py", line 105, in read
+    data = await reader(2)
+  File "/home/ubuntu/anaconda3/lib/python3.7/asyncio/streams.py", line 677, in readexactly
+    raise IncompleteReadError(incomplete, n)
+asyncio.streams.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 73, in _async_send
+    await self.connection.send(msg)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 567, in send
+    await self.write_frame(True, opcode, data)
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 1083, in write_frame
+    await self.ensure_open()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/websockets/protocol.py", line 803, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: code = 1006 (connection closed abnormally [internal]), no reason
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 79, in _async_send
+    await self.dispose()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 170, in dispose
+    await self._on_close()
+  File "/home/ubuntu/anaconda3/lib/python3.7/site-packages/pyppeteer/connection.py", line 153, in _on_close
+    f'Protocol error {cb.method}: Target closed.',  # type: ignore
+asyncio.base_futures.InvalidStateError: invalid state
