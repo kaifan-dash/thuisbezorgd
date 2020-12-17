@@ -96,7 +96,7 @@ def parse_sub_area(browser, url):
     global save_dir
     global prefix
     html_soup = loop.run_until_complete(load_page(browser, url))
-    restaurants = html_soup.find_all('div', {'class': 'js-restaurant restaurant'})
+    restaurants = html_soup.find_all('a', {'class': 'restaurantname'})
     print (restaurants)
     if len(restaurants) > 0:
         bprint.blue(f'{url}\nfound {len(restaurants)} restaurants')
