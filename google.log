@@ -802,3 +802,25 @@ Traceback (most recent call last):
   File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 218, in send
     f'Protocol Error ({method}): Session closed. Most likely the '
 pyppeteer.errors.NetworkError: Protocol Error (Runtime.callFunctionOn): Session closed. Most likely the page has been closed.
+2020-12-18 13:33:07,426 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished coro=<load_page() done, defined at full_search.py:20> exception=NetworkError('Protocol Error (Runtime.callFunctionOn): Session closed. Most likely the page has been closed.')>
+Traceback (most recent call last):
+  File "full_search.py", line 48, in load_page
+    content = await page.content()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/page.py", line 803, in content
+    return await frame.content()
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/frame_manager.py", line 393, in content
+    '''.strip())
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/frame_manager.py", line 309, in evaluate
+    pageFunction, *args, force_expr=force_expr)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/execution_context.py", line 54, in evaluate
+    pageFunction, *args, force_expr=force_expr)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/execution_context.py", line 108, in evaluateHandle
+    _rewriteError(e)
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/execution_context.py", line 238, in _rewriteError
+    raise error
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/execution_context.py", line 105, in evaluateHandle
+    'userGesture': True,
+  File "/Users/kai/envs/dashmote_scrapy/lib/python3.7/site-packages/pyppeteer/connection.py", line 218, in send
+    f'Protocol Error ({method}): Session closed. Most likely the '
+pyppeteer.errors.NetworkError: Protocol Error (Runtime.callFunctionOn): Session closed. Most likely the page has been closed.

@@ -2,4 +2,5 @@
 *.ipynb
 .ipynb_checkpoints/
 *.html
-*.log
+google.log
+package-lock.json

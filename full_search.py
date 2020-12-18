@@ -120,10 +120,8 @@ def parse_sub_area(browser, url):
     if len(restaurants) > 0:
         bprint.blue(f'{url}\nfound {len(restaurants)} restaurants')
         for restaurant in restaurants:
-            new_label = False
-            if restaurant.find('div', {'class': 'baloon-container restaurantlabel balloon_new'}):
-                new_label = True
-            suffix = restaurant.find('a', {'class': 'restaurantname notranslate'})['href']
+            # print (restaurant)
+            suffix = restaurant['href']
             if suffix != '{{RestaurantUrl}}':
                 restaurant_page_url = '/'.join(url.split('/')[0:-2]) + suffix
                 print (restaurant_page_url)
