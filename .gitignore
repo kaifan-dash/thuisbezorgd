@@ -1,1 +1,6 @@
 *.txt
+*.ipynb
+.ipynb_checkpoints/
+*.html
+google.log
+package-lock.json

@@ -18,6 +18,20 @@ import datetime
 today = datetime.date.today().strftime('%Y%m')
 
 async def load_page(browser, url):
+    global save_dir
+    cache_dir = f'{save_dir}/html_cache'
+    try:
+        os.mkdir(cache_dir)
+        bprint.blue(f'first time running, creating cache folder {cache_dir}')
+    except:
+        pass
+    # #check cache
+    # if os.path.exists(f'{cache_dir}/{url}.html'):
+    #     bprint.blue('file found')
+    #     with open(f'{save_dir}/{url}.html', 'r') as f:
+    #         html_soup = BeautifulSoup(f.read(), 'html.parser')
+    #     return html_soup
+
     page = await browser.newPage()
     headers = {
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
@@ -32,6 +46,11 @@ async def load_page(browser, url):
         bprint.red(str(e))
         pass
     content = await page.content()
+
+    # write to cache
+    # with open(f'{cache_dir}/test.html', 'w') as f:
+    #     f.write(content)
+
     html_soup = BeautifulSoup(content, 'html.parser')
     await page.close()
     return html_soup
@@ -96,22 +115,27 @@ def parse_sub_area(browser, url):
     global save_dir
     global prefix
     html_soup = loop.run_until_complete(load_page(browser, url))
-    restaurants = html_soup.find_all('div', {'class': 'js-restaurant restaurant'})
-    print (restaurants)
+
+    restaurants = html_soup.find_all('a', {'class': 'restaurantname'})
     if len(restaurants) > 0:
         bprint.blue(f'{url}\nfound {len(restaurants)} restaurants')
         for restaurant in restaurants:
-            new_label = False
-            if restaurant.find('div', {'class': 'baloon-container restaurantlabel balloon_new'}):
-                new_label = True
-            suffix = restaurant.find('a', {'class': 'restaurantname'})['href']
+            # print (restaurant)
+            suffix = restaurant['href']
             if suffix != '{{RestaurantUrl}}':
                 restaurant_page_url = '/'.join(url.split('/')[0:-2]) + suffix
                 print (restaurant_page_url)
                 with open(f'{save_dir}/{prefix}_restaurant_urls.txt', 'a') as f:
                     f.write(f'{restaurant_page_url}\n')
-    else:
-        bprint.red(f'{url}\nfound {len(restaurants)} restaurants')
+    # else:
+    #     bprint.red(f'{url}\nfound {len(restaurants)} restaurants')
+
+    streets = html_soup.find_all('div', {'class': 'delarea'})
+    if len(streets) > 0:
+        bprint.blue(f'{url}\nfound {len(streets)} streets')
+        for street in streets:
+            _url = '/'.join(url.split('/')[0:-2]) + street.find('a')['href']
+            parse_sub_area(browser, _url)
 
 
 def run_sub_areas(urls):
