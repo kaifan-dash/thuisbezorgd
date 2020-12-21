@@ -17,20 +17,22 @@ import os
 import datetime
 today = datetime.date.today().strftime('%Y%m')
 
-async def load_page(browser, url):
+async def load_page(browser, url, cache=True):
     global save_dir
     cache_dir = f'{save_dir}/html_cache'
+    filename = url.split('/')[-1]
     try:
         os.mkdir(cache_dir)
         bprint.blue(f'first time running, creating cache folder {cache_dir}')
     except:
         pass
-    # #check cache
-    # if os.path.exists(f'{cache_dir}/{url}.html'):
-    #     bprint.blue('file found')
-    #     with open(f'{save_dir}/{url}.html', 'r') as f:
-    #         html_soup = BeautifulSoup(f.read(), 'html.parser')
-    #     return html_soup
+    #check cache
+    if cache is True:
+        if os.path.exists(f'{cache_dir}/{filename}.html'):
+            bprint.blue('cache found')
+            with open(f'{cache_dir}/{filename}.html', 'r') as f:
+                html_soup = BeautifulSoup(f.read(), 'html.parser')
+            return html_soup
 
     page = await browser.newPage()
     headers = {
@@ -40,16 +42,21 @@ async def load_page(browser, url):
     await page.setViewport(viewport={'width': 1280, 'height': 800})
     await page.setJavaScriptEnabled(enabled=True)
     try:
-        await page.goto(url, {'timeout': 50000, 'waitUntil': 'networkidle0'})
+        res = await page.goto(url, {'timeout': 10000, 'waitUntil': 'networkidle0'})
         await page.waitForNavigation()
+        # write to cache
+        if cache is True and res.status == 200:
+            bprint.blue(f'status: 200')
+            with open(f'{cache_dir}/{filename}.html', 'w') as f:
+                f.write(content)
+        elif res.status:
+            bprint.red(res.status)
+
     except Exception as e:
         bprint.red(str(e))
         pass
-    content = await page.content()
 
-    # write to cache
-    # with open(f'{cache_dir}/test.html', 'w') as f:
-    #     f.write(content)
+    content = await page.content()
 
     html_soup = BeautifulSoup(content, 'html.parser')
     await page.close()
@@ -78,7 +85,7 @@ def run(url):
     global province_urls
     province_urls = []
     browser = loop.run_until_complete(launch(headless = True, dumpio = True, args=['--no-sandbox', '--disable-setuid-sandbox']))
-    html_soup = loop.run_until_complete(load_page(browser, url))
+    html_soup = loop.run_until_complete(load_page(browser, url, cache=False))
     for div in html_soup.findAll('div', {'class': 'footer-nav'}):
         title_div = div.find('div', {'class': 'title'})
         # if title_div:
@@ -135,12 +142,14 @@ def parse_sub_area(browser, url):
         bprint.blue(f'{url}\nfound {len(streets)} streets')
         for street in streets:
             _url = '/'.join(url.split('/')[0:-2]) + street.find('a')['href']
+            bprint.yellow(f'redirect to: {_url}')
             parse_sub_area(browser, _url)
 
 
 def run_sub_areas(urls):
     global loop
     n = round(len(urls)/100)
+    bprint.green(f'{n+1} processes')
     for i in tqdm(range(n+1)):
         browser = loop.run_until_complete(launch(headless = True, dumpio = True, args=['--no-sandbox', '--disable-setuid-sandbox']))
         _urls = urls[i*100: i*100+100]
