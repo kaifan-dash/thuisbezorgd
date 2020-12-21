@@ -125,8 +125,54 @@ async def parse_sub_area(browser, url):
     global loop
     global save_dir
     global prefix
+    cache = True
     async with sem:
-        html_soup = loop.run_until_complete(await load_page(browser, url))
+        global save_dir
+        cache_dir = f'{save_dir}/html_cache'
+        filename = url.split('/')[-1]
+        try:
+            os.mkdir(cache_dir)
+            bprint.blue(f'first time running, creating cache folder {cache_dir}')
+        except:
+            pass
+        #check cache
+        if cache is True:
+            if os.path.exists(f'{cache_dir}/{filename}.html'):
+                bprint.blue('cache found')
+                with open(f'{cache_dir}/{filename}.html', 'r') as f:
+                    html_soup = BeautifulSoup(f.read(), 'html.parser')
+                return html_soup
+
+        page = await browser.newPage()
+        headers = {
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+        }
+        await page.setExtraHTTPHeaders(headers)
+        await page.setViewport(viewport={'width': 1280, 'height': 800})
+        await page.setJavaScriptEnabled(enabled=True)
+        try:
+            res = await page.goto(url, {'timeout': 10000, 'waitUntil': 'networkidle0'})
+            await page.waitForNavigation()
+
+        except Exception as e:
+            # bprint.red(str(e))
+            pass
+
+        content = await page.content()
+
+        # write to cache
+        try:
+            if cache is True and res.status == 200:
+                # bprint.blue(f'status: 200')
+                with open(f'{cache_dir}/{filename}.html', 'w') as f:
+                    f.write(content)
+            elif res.status:
+                bprint.red(res.status)
+        except Exception as e:
+            bprint.red(f'ERROR CACHING FILE: {e}')
+
+        html_soup = BeautifulSoup(content, 'html.parser')
+        await page.close()
 
         restaurants = html_soup.find_all('a', {'class': 'restaurantname'})
         if len(restaurants) > 0:
