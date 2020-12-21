@@ -49,6 +49,8 @@ async def load_page(browser, url, cache=True):
         bprint.red(str(e))
         pass
 
+    content = await page.content()
+    
     # write to cache
     try:
         if cache is True and res.status == 200:
@@ -59,8 +61,6 @@ async def load_page(browser, url, cache=True):
             bprint.red(res.status)
     except Exception as e:
         bprint.red(f'ERROR CACHING FILE: {e}')
-
-    content = await page.content()
 
     html_soup = BeautifulSoup(content, 'html.parser')
     await page.close()
