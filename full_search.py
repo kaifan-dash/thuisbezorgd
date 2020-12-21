@@ -121,33 +121,34 @@ def run_provinces(urls):
                 sub_area_urls.append(sub_area_page_url)
     loop.run_until_complete(browser.close())
 
-def parse_sub_area(browser, url):
+async def parse_sub_area(browser, url):
     global loop
     global save_dir
     global prefix
-    html_soup = loop.run_until_complete(load_page(browser, url))
+    async with sem:
+        html_soup = loop.run_until_complete(load_page(browser, url))
 
-    restaurants = html_soup.find_all('a', {'class': 'restaurantname'})
-    if len(restaurants) > 0:
-        bprint.blue(f'{url}\nfound {len(restaurants)} restaurants')
-        for restaurant in restaurants:
-            # print (restaurant)
-            suffix = restaurant['href']
-            if suffix != '{{RestaurantUrl}}':
-                restaurant_page_url = '/'.join(url.split('/')[0:-2]) + suffix
-                print (restaurant_page_url)
-                with open(f'{save_dir}/{prefix}_restaurant_urls.txt', 'a') as f:
-                    f.write(f'{restaurant_page_url}\n')
-    # else:
-    #     bprint.red(f'{url}\nfound {len(restaurants)} restaurants')
+        restaurants = html_soup.find_all('a', {'class': 'restaurantname'})
+        if len(restaurants) > 0:
+            bprint.blue(f'{url}\nfound {len(restaurants)} restaurants')
+            for restaurant in restaurants:
+                # print (restaurant)
+                suffix = restaurant['href']
+                if suffix != '{{RestaurantUrl}}':
+                    restaurant_page_url = '/'.join(url.split('/')[0:-2]) + suffix
+                    print (restaurant_page_url)
+                    with open(f'{save_dir}/{prefix}_restaurant_urls.txt', 'a') as f:
+                        f.write(f'{restaurant_page_url}\n')
+        # else:
+        #     bprint.red(f'{url}\nfound {len(restaurants)} restaurants')
 
-    streets = html_soup.find_all('div', {'class': 'delarea'})
-    if len(streets) > 0:
-        bprint.blue(f'{url}\nfound {len(streets)} streets')
-        for street in streets:
-            _url = '/'.join(url.split('/')[0:-2]) + street.find('a')['href']
-            bprint.yellow(f'redirect to: {_url}')
-            parse_sub_area(browser, _url)
+        streets = html_soup.find_all('div', {'class': 'delarea'})
+        if len(streets) > 0:
+            bprint.blue(f'{url}\nfound {len(streets)} streets')
+            for street in streets:
+                _url = '/'.join(url.split('/')[0:-2]) + street.find('a')['href']
+                bprint.yellow(f'redirect to: {_url}')
+                parse_sub_area(browser, _url)
 
 
 def run_sub_areas(urls):
