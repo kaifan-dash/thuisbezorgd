@@ -46,15 +46,15 @@ async def load_page(browser, url, cache=True):
         await page.waitForNavigation()
 
     except Exception as e:
-        bprint.red(str(e))
+        # bprint.red(str(e))
         pass
 
     content = await page.content()
-    
+
     # write to cache
     try:
         if cache is True and res.status == 200:
-            bprint.blue(f'status: 200')
+            # bprint.blue(f'status: 200')
             with open(f'{cache_dir}/{filename}.html', 'w') as f:
                 f.write(content)
         elif res.status:
