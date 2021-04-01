@@ -111,6 +111,14 @@ def run(urls):
         loop.run_until_complete(browser.close())
     loop.close()
 
+def compare_urls(completed, to_run):
+    completed_df = pd.DataFrame([{'url': url} for url in completed])
+    to_run_df = pd.DataFrame([{'url': url} for url in to_run])
+    completed_df['suffix'] = completed_df['url'].apply(lambda x: x.split('/')[-1].replace('#info', ''))
+    to_run_df['suffix'] = to_run_df['url'].apply(lambda x: x.split('/')[-1].replace('#info', ''))
+    final = to_run_df[~to_run_df['suffix'].isin(completed_df['suffix'].to_list())]['url'].to_list()
+    return final
+    
 def main():
     global prefix
     global save_dir
@@ -127,21 +135,22 @@ def main():
         urls = f.readlines()
     urls = list(set([x.strip('\n') for x in urls]))
     print (color.GREEN + f'{len(urls)} urls' + color.END)
-    urls = [x.replace('www.lieferando.at/speisekarte/', 'www.lieferando.at/en/menu/') + '#info' for x in urls]
+    urls = [x.replace('www.lieferando.at/speisekarte/', 'www.lieferando.at/en/menu/') for x in urls]
     try:
         with open(f'{save_dir}/{prefix}_results.txt', 'r') as f:
             lines = f.readlines()
         completed = []
         for line in lines:
             try:
-                completed.append(ast.literal_eval(line)['url'])
+                completed.append(eval(line.replace('nan', 'None'))['url'])
             except:
                 print (line)
-        completed = [x.replace('www.lieferando.at/speisekarte/', 'www.lieferando.at/en/menu/') for x in completed]
+#         completed = [x.replace('www.lieferando.at/speisekarte/', 'www.lieferando.at/en/menu/') for x in completed]
         
         print (completed[:5])
         print (urls[:5])
-        urls = list(set(urls) - set(completed))
+        urls = compare_urls(completed, urls)
+#         urls = list(set(urls) - set(completed))
         print (color.GREEN + f'{len(completed)} completed\n{len(urls)} incomplete' + color.END)
     except FileNotFoundError:
         print (color.RED + f'{prefix}_results.txt not found, running for the first time' + color.END)
