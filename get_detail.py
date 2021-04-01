@@ -28,9 +28,10 @@ async def parse_restaurant(browser, url):
         await page.setViewport(viewport={'width': 1280, 'height': 800})
         await page.setJavaScriptEnabled(enabled=True)
         try:
-            await page.goto(url, {'waitUntil': 'networkidle0'})
-#             await page.waitForNavigation()
+            res = await page.goto(url)
+            await page.waitForNavigation({'waitUntil': 'networkidle0'})
         except Exception as e:
+#             await page.waitForNavigation()
 #             print (color.RED + str(e) + color.END)
             pass
         content = await page.content()
@@ -43,45 +44,40 @@ async def parse_restaurant(browser, url):
                 f.write(str(item) + '\n')
         except Exception as e:
             bprint.red(e)
-
+            
         try:
-            meal_items = _parse_meals(soup, url)
-            if len(meal_items) > 0:
-                with open(f'{prefix}/{prefix}_meals.txt', 'a') as f:
-                    for item in meal_items:
-                        f.write(str(item) + '\n')
-                bprint.blue(f'{len(meal_items)} meal items in {url}')
-        except:
-            pass
+            if res.status == 200:
+                try:
+                    filename = url.split('/')[-1]
+                    with open(f'{cache_dir}/{filename}.html', 'w') as f:
+                        f.write(content)
+                except Exception as e:
+                    bprint.red(f'ERROR CACHING FILE: {e}')
+            else:
+                bprint.red(res.status)
+        except Exception as e:
+            bprint.red(f'ERROR CACHING FILE: {e}')
+
+#         try:
+#             meal_items = _parse_meals(soup, url)
+#             if len(meal_items) > 0:
+#                 with open(f'{prefix}/{prefix}_meals.txt', 'a') as f:
+#                     for item in meal_items:
+#                         f.write(str(item) + '\n')
+#                 bprint.blue(f'{len(meal_items)} meal items in {url}')
+#         except:
+#             pass
 
 
 def run(urls):
     global prefix
-    try:
-        with open(f'{prefix}_{today}/{prefix}_results.txt', 'r') as f:
-            lines = f.readlines()
-        # lines = [x.strip('\n') for x in lines]
-        completed = []
-        for line in lines:
-            try:
-                line = ast.literal_eval(line)
-                url = line['url']
-                completed.append(url)
-            except:
-                pass
-        # completed = [ast.literal_eval(x)['url'] for x in lines]
-        incomplete = list(set(urls) - set(completed))
-        print (color.GREEN + f'{len(completed)} completed\n{len(incomplete)} incomplete' + color.END)
-    except FileNotFoundError:
-        print (color.RED + f'{prefix}_{today}/{prefix}_results.txt not found, running for the first time' + color.END)
-        incomplete = urls
-    # results = []
-    n = round(len(incomplete)/100)
+
+    n = round(len(urls)/100)
     loop = asyncio.get_event_loop()
     for i in tqdm(range(n+1)):
         browser = loop.run_until_complete(launch(headless = True, dumpio = True, args=['--no-sandbox', '--disable-setuid-sandbox']))
         loop.run_until_complete(asyncio.sleep(3))
-        _urls = incomplete[i*100: i*100+100]
+        _urls = urls[i*100: i*100+100]
         tasks = []
         for url in _urls:
             tasks.append(parse_restaurant(browser, url))
@@ -90,21 +86,40 @@ def run(urls):
         loop.run_until_complete(browser.close())
     loop.close()
 
+def compare_urls(completed, to_run):
+    completed_df = pd.DataFrame([{'url': url} for url in completed])
+    to_run_df = pd.DataFrame([{'url': url} for url in to_run])
+    completed_df['suffix'] = completed_df['url'].apply(lambda x: x.split('/')[-1].replace('#info', ''))
+    to_run_df['suffix'] = to_run_df['url'].apply(lambda x: x.split('/')[-1].replace('#info', ''))
+    final = to_run_df[~to_run_df['suffix'].isin(completed_df['suffix'].to_list())]['url'].to_list()
+    return final
+    
 def main():
     global prefix
+    global cache_dir
     prefix = sys.argv[1]
     date = sys.argv[2]
-    
+    cache_dir = f'{prefix}_{today}/html_cache/'
     try:
         os.listdir(f'{prefix}_{today}')
     except:
         os.mkdir(f'{prefix}_{today}')
+    
+    try:
+        os.mkdir(cache_dir)
+    except:
+        pass
 
     print (color.GREEN + 'loading data' + color.END)
     data = pd.read_parquet(f's3://dashmote-product/thuisbezorgd/{date}/{prefix}_outlet_information.parquet.gzip', engine = 'fastparquet')
     print (color.GREEN + 'data loaded' + color.END)
     urls = data['url'].to_list()
-    print (color.GREEN + f'{len(urls)} urls' + color.END)
+    
+    completed = os.listdir(f'{prefix}_{today}/html_cache/')
+    if len(completed) > 0:
+        urls = compare_urls(completed, urls)
+    
+    print (color.GREEN + f'{len(urls)} urls to run\n{len(completed)} urls completed' + color.END)
 
     run(urls)
 

@@ -149,7 +149,8 @@ def main():
         
         print (completed[:5])
         print (urls[:5])
-        urls = compare_urls(completed, urls)
+        if len(completed) > 0:
+            urls = compare_urls(completed, urls)
 #         urls = list(set(urls) - set(completed))
         print (color.GREEN + f'{len(completed)} completed\n{len(urls)} incomplete' + color.END)
     except FileNotFoundError:
