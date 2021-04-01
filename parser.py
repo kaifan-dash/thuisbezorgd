@@ -4,6 +4,7 @@ import json
 import fuckit
 from unidecode import unidecode
 from utils import color
+import numpy as np
 
 def _parse_home_page(html_soup, url):
     """Parses the home page, i.e. thuisbezorgd.nl, crawling for area
@@ -109,17 +110,42 @@ def _parse_restaurant(soup, url):
         item['postal_code'] = json_text.get('address', {}).get('postalCode')
     item['country'] = json_text.get('address', {}).get('addressCountry')
     item['price_level'] = None
-    item['address'] = item['street'] + ' ' + item['city']
+    try:
+        item['address'] = item['street'] + ' ' + item['city']
+    except:
+        item['address'] = np.nan
+        
+    ## red bull addition
+    with fuckit:
+        item['minimum_order_amount'] = float(soup.find('div', {'id': 'delivery-costs-card'}).find('td', {'id': 'minimumcosts'}).text.split(' ')[-1].replace(',', '.'))
+        
+    with fuckit:
+        item['deliver_fee'] = float(soup.find('div', {'id': 'delivery-costs-card'}).find('td', {'id': 'delivery-cost'}).text.split(' ')[-1].replace(',', '.'))
+    
+    item['promotion_banner_available'] = False
+    with fuckit:
+        item['promotion_banner'] = soup.find('div', {'class': 'hero'})['style'].split(': ')[-1].strip('url(//').strip(')')
+        item['promotion_banner_available'] = True
     return item
 
 def _parse_back_page(soup, url):
-    restaurant_urls = []
-    restaurants = soup.find_all('a', {'class': 'restaurantname'})
-    for a in restaurants:
-        if a['href'] != '{{RestaurantUrl}}':
-            restaurant_page_url = url + a['href']
-            restaurant_urls.append(restaurant_page_url)
-    return restaurant_urls
+    restaurants = []
+    soup = soup.find('div', {'id': 'irestaurantlist'})
+    detail_wrappers = soup.find_all('div', {'class': 'detailswrapper'})
+    for restaurant in detail_wrappers:
+        try:
+            page_url = url + restaurant.find('a', {'class': 'restaurantname'})['href']
+            cuisine = restaurant.find('div', {'class': 'kitchens'}).find('span').text.replace(',', ';')
+            restaurants.append({'url': page_url, 'cuisine': cuisine})
+        except:
+            print (restaurant)
+        
+#     restaurants = soup.find_all('a', {'class': 'restaurantname'})
+#     for a in restaurants:
+#         if a['href'] != '{{RestaurantUrl}}':
+#             restaurant_page_url = url + a['href']
+#             restaurant_urls.append(restaurant_page_url)
+    return restaurants
 
 def _parse_meals(soup, url):
     meal_items = []

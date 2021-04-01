@@ -4,3 +4,5 @@
 *.html
 google.log
 package-lock.json
+*/
+*.gzip

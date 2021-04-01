@@ -43,10 +43,10 @@ async def load_page(browser, url, cache=True):
     await page.setJavaScriptEnabled(enabled=True)
     try:
         res = await page.goto(url, {'timeout': 10000, 'waitUntil': 'networkidle0'})
-        await page.waitForNavigation()
+#         await page.waitForNavigation()
 
     except Exception as e:
-        # bprint.red(str(e))
+        bprint.red(str(e))
         pass
 
     content = await page.content()
@@ -87,6 +87,7 @@ async def parse_province_page(browser, url):
 def run(url):
     global loop
     global province_urls
+    global home_url
     province_urls = []
     browser = loop.run_until_complete(launch(headless = True, dumpio = True, args=['--no-sandbox', '--disable-setuid-sandbox']))
     html_soup = loop.run_until_complete(load_page(browser, url, cache=False))
@@ -95,12 +96,12 @@ def run(url):
         # if title_div:
         #     print(title_div.text.strip())
         if title_div and title_div.text.strip() in [
-                'Provincies', 'Regionen', 'Steden', 'Provinces'#, 'Cities', 'Communities', 'Cantons'
+                'Provincies', 'Regionen', 'Steden', 'Provinces', 'Kantone'#, 'Cities', 'Communities', 'Cantons'
         ]:
             bprint.blue(title_div.text.strip())
             for a in div.findAll('a', {'class': 'keywordslink'}):
                 # if _should_parse_city_or_province(a.text):
-                area_page_url = '/'.join(url.split('/')[0:-2]) + a['href']
+                area_page_url = home_url + a['href']
                 print(area_page_url)
                 province_urls.append(area_page_url)
     loop.run_until_complete(browser.close())
@@ -108,6 +109,7 @@ def run(url):
 def run_provinces(urls):
     global loop
     global sub_area_urls
+    global home_url
     sub_area_urls = []
     browser = loop.run_until_complete(launch(headless = True, dumpio = True, args=['--no-sandbox', '--disable-setuid-sandbox']))
     for url in urls:
@@ -116,7 +118,7 @@ def run_provinces(urls):
         # headers['Referer'] = response.url
         for sub_area in sub_areas:
             for a in sub_area.find_all('a', href=True):
-                sub_area_page_url = '/'.join(url.split('/')[0:-2]) + a['href']
+                sub_area_page_url = home_url + a['href']
                 # print (sub_area_page_url)
                 sub_area_urls.append(sub_area_page_url)
     loop.run_until_complete(browser.close())
@@ -125,6 +127,7 @@ async def parse_sub_area(browser, url):
     global loop
     global save_dir
     global prefix
+    global home_url
     cache = True
     async with sem:
         global save_dir
@@ -181,7 +184,7 @@ async def parse_sub_area(browser, url):
                 # print (restaurant)
                 suffix = restaurant['href']
                 if suffix != '{{RestaurantUrl}}':
-                    restaurant_page_url = '/'.join(url.split('/')[0:-2]) + suffix
+                    restaurant_page_url = home_url + suffix
                     print (restaurant_page_url)
                     with open(f'{save_dir}/{prefix}_restaurant_urls.txt', 'a') as f:
                         f.write(f'{restaurant_page_url}\n')
@@ -192,7 +195,7 @@ async def parse_sub_area(browser, url):
         if len(streets) > 0:
             bprint.blue(f'{url}\nfound {len(streets)} streets')
             for street in streets:
-                _url = '/'.join(url.split('/')[0:-2]) + street.find('a')['href']
+                _url = home_url + street.find('a')['href']
                 bprint.yellow(f'redirect to: {_url}')
                 parse_sub_area(browser, _url)
 
@@ -216,8 +219,9 @@ def main():
     global province_urls
     global sub_area_urls
     global save_dir
+    global home_url
     prefix = sys.argv[1]
-    home_url = sys.argv[2]
+    base_url = sys.argv[2]
 
     save_dir = f'{prefix}_{today}'
     try:
@@ -225,7 +229,12 @@ def main():
     except:
         os.mkdir(save_dir)
 
-    bprint.blue(f'scraping for {prefix}\nurl: {home_url}')
+    bprint.blue(f'scraping for {prefix}\nurl: {base_url}')
+    
+    try:
+        home_url = sys.argv[3]
+    except:
+        home_url = base_url
 
     loop = asyncio.get_event_loop()
 

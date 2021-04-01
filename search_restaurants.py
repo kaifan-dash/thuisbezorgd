@@ -14,6 +14,8 @@ sem = asyncio.BoundedSemaphore(4)
 from utils import bprint
 import ast
 import os
+import datetime
+today = datetime.date.today().strftime('%Y%m')
 
 async def get_restaurants(browser, url):
     global prefix
@@ -26,31 +28,51 @@ async def get_restaurants(browser, url):
         await page.setViewport(viewport={'width': 1280, 'height': 800})
         await page.setJavaScriptEnabled(enabled=True)
         try:
-            await page.goto(url, {'timeout': 10000, 'waitUntil': 'networkidle0'})
-            # await page.waitForNavigation()
+            await page.goto(url, {'waitUntil': 'networkidle0'})
+#             await page.waitForNavigation()
         except Exception as e:
             bprint.red(e)
             pass
-        content = await page.content()
-        soup = BeautifulSoup(content, 'html.parser')
-        core_url = url.split('/')[-3]
-        core_url = f'https://{core_url}'
-        rest_urls = _parse_back_page(soup, core_url)
+        try:
+            content = await page.content()
+            soup = BeautifulSoup(content, 'html.parser')
+            core_url = url.split('/')[-3]
+            core_url = f'https://{core_url}'
+            restaurants = _parse_back_page(soup, core_url)
 
-        sub_area = url.split('/')[-1]
-        bprint.blue(f'{len(rest_urls)} in {url}')
-        for rest_url in rest_urls:
-            with open(f'{prefix}/{prefix}_restaurant_urls.txt', 'a') as f:
-                f.write(rest_url + '\n')
+            sub_area = url.split('/')[-1]
+            bprint.blue(f'{len(restaurants)} in {url}')
+            for restaurant in restaurants:
+                _url = restaurant['url']
+                with open(f'{prefix}_{today}/{prefix}_restaurant_urls.txt', 'a') as f:
+                    f.write(_url + '\n')
+                _cuisine = restaurant['cuisine']
+                with open(f'{prefix}_{today}/{prefix}_url_cuisine.txt', 'a') as f:
+                        f.write(f'{restaurant}\n')
+        except Exception as e:
+            bprint.red(url)
+            bprint.red(e)
+            
 
 def main():
     global prefix
     prefix = sys.argv[1]
-    with open(f'{prefix}/{prefix}_results.txt', 'r') as f:
+    with open(f'{prefix}_{today}/{prefix}_results.txt', 'r') as f:
         lines = f.readlines()
+#     outlets = pd.read_parquet(f's3://dashmote-product/thuisbezorgd/{today}/{prefix}_outlet_information.parquet.gzip')
     # lines = [x.strip('\n') for x in lines]
-    back_urls = [ast.literal_eval(x)['back_url'] for x in lines if 'back_url' in ast.literal_eval(x).keys()]
+    # back_urls = [ast.literal_eval(x)['back_url'] for x in lines if 'back_url' in ast.literal_eval(x).keys()]
+    back_urls = []
+    for line in lines:
+        try:
+            if 'back_url' in ast.literal_eval(line).keys():
+                back_urls.append(ast.literal_eval(line)['back_url'])
+        except:
+            print (f'malformed string: {line}')
+                
     back_urls = list(set(back_urls))
+    back_urls = [x.replace('en/en/', 'www.lieferando.at/en/') for x in back_urls]
+    back_urls = [x.replace('https://be-en', 'https://www.takeaway.com') for x in back_urls]
     bprint.green(f'{len(back_urls)} sub areas in {prefix}')
 
     n = round(len(back_urls)/100)

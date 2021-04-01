@@ -14,6 +14,8 @@ sem = asyncio.BoundedSemaphore(4)
 from utils import color, bprint
 import ast
 import os
+import datetime
+today = datetime.date.today().strftime('%Y%m')
 
 async def parse_restaurant(browser, url):
     global prefix
@@ -26,10 +28,10 @@ async def parse_restaurant(browser, url):
         await page.setViewport(viewport={'width': 1280, 'height': 800})
         await page.setJavaScriptEnabled(enabled=True)
         try:
-            await page.goto(url, {'timeout': 10000, 'waitUntil': 'networkidle0'})
-            # await page.waitForNavigation()
+            await page.goto(url, {'waitUntil': 'networkidle0'})
+#             await page.waitForNavigation()
         except Exception as e:
-            print (color.RED + str(e) + color.END)
+#             print (color.RED + str(e) + color.END)
             pass
         content = await page.content()
         soup = BeautifulSoup(content, 'html.parser')
@@ -37,7 +39,7 @@ async def parse_restaurant(browser, url):
         try:
             item = _parse_restaurant(soup, url)
             print(color.BLUE + item['name'] + color.END)
-            with open(f'{prefix}/{prefix}_results.txt', 'a') as f:
+            with open(f'{prefix}_{today}/{prefix}_results.txt', 'a') as f:
                 f.write(str(item) + '\n')
         except Exception as e:
             bprint.red(e)
@@ -56,14 +58,22 @@ async def parse_restaurant(browser, url):
 def run(urls):
     global prefix
     try:
-        with open(f'{prefix}/{prefix}_results.txt', 'r') as f:
+        with open(f'{prefix}_{today}/{prefix}_results.txt', 'r') as f:
             lines = f.readlines()
         # lines = [x.strip('\n') for x in lines]
-        completed = [ast.literal_eval(x)['url'] for x in lines]
+        completed = []
+        for line in lines:
+            try:
+                line = ast.literal_eval(line)
+                url = line['url']
+                completed.append(url)
+            except:
+                pass
+        # completed = [ast.literal_eval(x)['url'] for x in lines]
         incomplete = list(set(urls) - set(completed))
         print (color.GREEN + f'{len(completed)} completed\n{len(incomplete)} incomplete' + color.END)
     except FileNotFoundError:
-        print (color.RED + f'{prefix}/{prefix}_results.txt not found, running for the first time' + color.END)
+        print (color.RED + f'{prefix}_{today}/{prefix}_results.txt not found, running for the first time' + color.END)
         incomplete = urls
     # results = []
     n = round(len(incomplete)/100)
@@ -86,9 +96,9 @@ def main():
     date = sys.argv[2]
     
     try:
-        os.listdir(prefix)
+        os.listdir(f'{prefix}_{today}')
     except:
-        os.mkdir(prefix)
+        os.mkdir(f'{prefix}_{today}')
 
     print (color.GREEN + 'loading data' + color.END)
     data = pd.read_parquet(f's3://dashmote-product/thuisbezorgd/{date}/{prefix}_outlet_information.parquet.gzip', engine = 'fastparquet')
@@ -97,7 +107,5 @@ def main():
     print (color.GREEN + f'{len(urls)} urls' + color.END)
 
     run(urls)
-    # with open
-
 
 main()
