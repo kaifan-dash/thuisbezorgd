@@ -117,6 +117,7 @@ def compare_urls(completed, to_run):
     completed_df['suffix'] = completed_df['url'].apply(lambda x: x.split('/')[-1].replace('#info', ''))
     to_run_df['suffix'] = to_run_df['url'].apply(lambda x: x.split('/')[-1].replace('#info', ''))
     final = to_run_df[~to_run_df['suffix'].isin(completed_df['suffix'].to_list())]['url'].to_list()
+    final = [x+'#info' for x in final]
     return final
     
 def main():
@@ -145,7 +146,6 @@ def main():
                 completed.append(eval(line.replace('nan', 'None'))['url'])
             except:
                 print (line)
-#         completed = [x.replace('www.lieferando.at/speisekarte/', 'www.lieferando.at/en/menu/') for x in completed]
         
         print (completed[:5])
         print (urls[:5])

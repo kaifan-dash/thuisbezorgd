@@ -65,8 +65,8 @@ def main():
     back_urls = []
     for line in lines:
         try:
-            if 'back_url' in ast.literal_eval(line).keys():
-                back_urls.append(ast.literal_eval(line)['back_url'])
+            if 'back_url' in eval(line).keys():
+                back_urls.append(eval(line)['back_url'])
         except:
             print (f'malformed string: {line}')
                 
