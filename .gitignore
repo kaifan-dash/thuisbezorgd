@@ -1,5 +1,5 @@
 *.txt
-*.ipynb
+# *.ipynb
 .ipynb_checkpoints/
 *.html
 google.log
