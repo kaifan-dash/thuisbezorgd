@@ -6,3 +6,4 @@ google.log
 package-lock.json
 */
 *.gzip
+__pycache__/*
